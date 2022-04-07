@@ -47,7 +47,7 @@ def get_text():
         topImage=article.top_image,
         images=list(article.imgs),
         authors=article.authors,
-        publishDate=str(publish_date),
+        publishDate=(publish_date[:1] or [None])[0],
         movies=article.movies,
         summary=article.summary,
         metaLang=article.meta_lang,
