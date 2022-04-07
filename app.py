@@ -1,5 +1,6 @@
 from configparser import MAX_INTERPOLATION_DEPTH
 from newspaper import Article
+from datetime import datetime
 
 #import nltk
 #import ssl
@@ -35,10 +36,10 @@ def get_text():
     article.fetch_images()
 
     publish_date = None
-    if not (article.publish_date is None):
-        publish_date = str(article.publish_date)
-    else:
-        publish_date = None
+
+    if article.publish_date is not None:
+        article_meta_data = article.meta_data
+        publish_date = sorted({value for (key, value) in article_meta_data.items() if key == 'pubdate'})
 
     return jsonify(
         title=article.title,
