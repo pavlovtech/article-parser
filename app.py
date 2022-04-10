@@ -21,8 +21,6 @@ app = Flask(__name__)
 
 @app.route("/api/v1/parse", methods=['POST'])
 def get_text():
-    print(request)
-
     request_data = request.get_json()
 
     url = request_data['url']
@@ -39,7 +37,8 @@ def get_text():
 
     if article.publish_date is not None:
         article_meta_data = article.meta_data
-        publish_date = sorted({value for (key, value) in article_meta_data.items() if key == 'pubdate'})
+        publish_dates = sorted({value for (key, value) in article_meta_data.items() if key == 'pubdate'})
+        publish_date = next(iter(publish_dates), None)
 
     return jsonify(
         title=article.title,
@@ -47,7 +46,7 @@ def get_text():
         topImage=article.top_image,
         images=list(article.imgs),
         authors=article.authors,
-        publishDate=(publish_date[:1] or [None])[0],
+        publishDate=publish_date,
         movies=article.movies,
         summary=article.summary,
         metaLang=article.meta_lang,
