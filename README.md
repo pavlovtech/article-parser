@@ -11,14 +11,14 @@ To start run the following command inside the project directory:
 > flask run
 
 
-## Request:
+## Request
 
 POST /api/v1/parse
 {
   "url": "https://yoursite.com/article1"
 }
 
-##Response:
+## Response
 
 ```
 {
